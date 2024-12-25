@@ -2,6 +2,15 @@ import { Request, Response } from "express";
 import { NoteSchema, Note } from "./schemas.js";
 import { getAllNotes, createOrUpdateNote, deleteNote } from "./services.js";
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "<")
+    .replace(/>/g, ">")
+    .replace(/"/g, '"')
+    .replace(/'/g, "&#39;");
+}
+
 export const renderHomePage = async (_req: Request, res: Response) => {
   try {
     const notes = await getAllNotes();
@@ -88,15 +97,15 @@ export const renderHomePage = async (_req: Request, res: Response) => {
       .map(
         (note) => `
       <div class="bg-white p-4 rounded shadow mb-2">
-        <h2 class="text-xl font-sembold">${note.title}</h2>
-        <p class="text-gray-600">${note.summary}</p>
+        <h2 class="text-xl font-sembold">${escapeHtml(note.title)}</h2>
+        <p class="text-gray-600">${escapeHtml(note.summary)}</p>
         <div class="mt-2">
-          <button onclick='openEditModal(${JSON.stringify(
-            note
+          <button onclick='openEditModal(${escapeHtml(
+            JSON.stringify(note)
           )})' class="px-3 py-1 bg-yellow-500 text-white rounded mr-2">Edit</button>
-          <button onclick="confirmDelete('${
+          <button onclick="confirmDelete('${escapeHtml(
             note.id
-          }')" class="px-3 py-1 bg-red-500 text-white rounded">Delete</button>
+          )}')" class="px-3 py-1 bg-red-500 text-white rounded">Delete</button>
         </div>
       </div>
     `

@@ -191,6 +191,8 @@ bun src/notes-web-server.ts --dynamodb "dynamodb://access_key:secret_key@region/
 
 > Alternatively, compile with `npm run build` and run `node dist/notes-mcp-server.js` or `node dist/notes-web-server.js`
 
+Then navigate to `http://localhost:3100` in your browser to view notes.
+
 ---
 
 ## 🔧 Available MCP Tools

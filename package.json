@@ -1,6 +1,6 @@
 {
   "name": "mcp-notes",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple note-taking MCP server for recording and managing notes with AI models.",
   "main": "dist/notes-mcp-server.js",
   "type": "module",
