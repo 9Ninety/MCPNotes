@@ -1,6 +1,6 @@
 {
   "name": "mcp-notes",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A simple note-taking MCP server for recording and managing notes with AI models.",
   "main": "dist/notes-mcp-server.js",
   "type": "module",
@@ -14,9 +14,10 @@
     "mcp-notes-web-server": "dist/notes-web-server.js"
   },
   "scripts": {
-    "build": "shx rm -r dist && tsc",
+    "build": "shx rm -rf dist && tsc",
     "start": "node dist/index.js",
-    "dev": "bun src/notes-mcp-server.ts"
+    "dev": "bun src/notes-mcp-server.ts",
+    "prepublishOnly": "bun run build"
   },
   "files": [
     "./dist",
