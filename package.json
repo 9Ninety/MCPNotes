@@ -1,10 +1,14 @@
 {
   "name": "mcp-notes",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A simple note-taking MCP server for recording and managing notes with AI models.",
   "main": "dist/notes-mcp-server.js",
   "type": "module",
   "license": "GPL-2.0-only",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/9Ninety/MCPNotes.git"
+  },
   "bin": {
     "mcp-notes-server": "dist/notes-mcp-server.js",
     "mcp-notes-web-server": "dist/notes-web-server.js"
@@ -14,6 +18,10 @@
     "start": "node dist/index.js",
     "dev": "bun src/notes-mcp-server.ts"
   },
+  "files": [
+    "./dist",
+    "./bun.lockb"
+  ],
   "dependencies": {
     "@anatine/zod-openapi": "^2.2.6",
     "@aws-sdk/lib-dynamodb": "^3.60.0",
@@ -27,6 +35,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.24",
+    "bun": "^1.1.42",
     "shx": "^0.3.4",
     "typescript": "^5.4.2"
   }

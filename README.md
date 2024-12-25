@@ -38,6 +38,12 @@ You can use any model that supports function calls as long as your client suppor
 
 ## 🛠️ Installation
 
+**Recommended**
+
+Run directly with `npx` or `bunx`, see examples below.
+
+**Alternative**
+
 1. Ensure **Node.js** is installed on your system.
 2. Clone this repository and install dependencies with: `npm install`
 3. Configure Claude Desktop or any other tools as shown below
@@ -66,6 +72,26 @@ dynamodb://<access_key>:<secret_key>@<region>/<table>
 ### Claude Desktop
 
 Add this snippet to `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "mcp-notes": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "-p",
+        "mcp-notes",
+        "mcp-notes-server",
+        "--dynamodb",
+        "dynamodb://access_key:secret_key@region/table"
+      ]
+    }
+  }
+}
+```
+
+or file on local disks:
 
 ```json
 {
@@ -104,6 +130,27 @@ Add this snippet to your VS Code settings:
 }
 ```
 
+alternatively, use with `npx` (not guaranteed to work):
+
+```json
+{
+  "openctx.providers": {
+    "https://openctx.org/npm/@openctx/provider-modelcontextprotocol": {
+      "nodeCommand": "node",
+      "mcp.provider.uri": "file:///usr/local/bin/npx",
+      "mcp.provider.args": [
+        "-y",
+        "-p",
+        "mcp-notes",
+        "mcp-notes-server",
+        "--dynamodb",
+        "dynamodb://access_key:secret_key@region/table"
+      ]
+    }
+  }
+}
+```
+
 ### Cline
 
 Add this snippet to `cline_mcp_settings.json`:
@@ -114,9 +161,12 @@ Add this snippet to `cline_mcp_settings.json`:
 {
   "mcpServers": {
     "mcp-notes": {
-      "command": "node",
+      "command": "npx",
       "args": [
-        "file://path/to/notes-mcp-server.js",
+        "-y",
+        "-p",
+        "mcp-notes",
+        "mcp-notes-server",
         "--dynamodb",
         "dynamodb://access_key:secret_key@region/table"
       ]
@@ -130,6 +180,10 @@ Add this snippet to `cline_mcp_settings.json`:
 ## 🚀 Running Web Servers
 
 The web server provides a user-friendly interface for managing your notes. You can launch web interfaces to manage your notes, add new notes for AI, or modify parts of AI-generated notes.
+
+```bash
+npx -p mcp-notes mcp-notes-web-server --dynamodb "dynamodb://access_key:secret_key@region/table"
+```
 
 ```bash
 bun src/notes-web-server.ts --dynamodb "dynamodb://access_key:secret_key@region/table"
