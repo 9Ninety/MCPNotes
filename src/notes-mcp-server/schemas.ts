@@ -20,7 +20,7 @@ export const ListNotesInputSchema = z.object({
   tags: z
     .array(z.string())
     .optional()
-    .describe("Optional tags to filter notes"),
+    .describe("Optional tags to filter notes. do not specify this if you didn't certainly sure what tags you want."),
 });
 
 export const GetNoteInputSchema = z.object({
