@@ -1,42 +1,43 @@
+import { ScanCommand } from "@aws-sdk/lib-dynamodb";
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import {
   CallToolRequestSchema,
-  ListToolsRequestSchema,
-  Tool,
   ListResourcesRequestSchema,
+  ListToolsRequestSchema,
   ReadResourceRequestSchema,
   SubscribeRequestSchema,
+  Tool,
   UnsubscribeRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
+import { getVersion } from "../utils/version.js";
 import { createDynamoDBClients, DynamoDBConfig } from "./config.js";
 import {
-  Note,
-  ListNotesInputSchema,
-  GetNoteInputSchema,
-  WriteNoteInputSchema,
-  DeleteNoteInputSchema,
-} from "./schemas.js";
-import { ToolName, Resource } from "./types.js";
-import { getTools } from "./tools.js";
-import {
-  handleListNotes,
-  handleGetNote,
-  handleWriteNote,
   handleDeleteNote,
+  handleGetNote,
+  handleListNotes,
+  handleWriteNote,
 } from "./handlers.js";
+import {
+  DeleteNoteInputSchema,
+  GetNoteInputSchema,
+  ListNotesInputSchema,
+  Note,
+  WriteNoteInputSchema,
+} from "./schemas.js";
+import { getTools } from "./tools.js";
+import { Resource, ToolName } from "./types.js";
 import { parseCursor } from "./utils.js";
-import { ScanCommand } from "@aws-sdk/lib-dynamodb";
 
 const PAGE_SIZE = 20;
 
-export const createNotesServer = (dynamoDBConfig: DynamoDBConfig) => {
+export const createNotesServer = async (dynamoDBConfig: DynamoDBConfig) => {
   const { docClient } = createDynamoDBClients(dynamoDBConfig);
   const tableName = dynamoDBConfig.tableName;
 
   const server = new Server(
     {
       name: "MCP Notes",
-      version: "0.1.0",
+      version: await getVersion(),
     },
     {
       capabilities: {

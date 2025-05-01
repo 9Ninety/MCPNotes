@@ -1,17 +1,15 @@
-#!/usr/bin/env node
-import express, { json, urlencoded } from "express";
+#!/usr/bin/env bun
 import { Command } from "commander";
-import * as dotenv from "dotenv";
+import express, { json, urlencoded } from "express";
 import { DynamoDBConfig } from "./notes-mcp-server/config.js";
 import routes from "./notes-web-server/routes.js";
 import { initializeDatabase } from "./notes-web-server/services.js";
-
-dotenv.config();
+import { getVersion } from "./utils/version.js";
 
 const program = new Command();
 
 program
-  .version("0.1.0")
+  .version(await getVersion())
   .description("Notes Web Server - A web-based note-taking service")
   .option(
     "-d, --dynamodb <connection_string>",

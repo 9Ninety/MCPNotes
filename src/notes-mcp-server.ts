@@ -1,16 +1,14 @@
-#!/usr/bin/env node
-import { Command } from "commander";
+#!/usr/bin/env bun
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { createNotesServer } from "./notes-mcp-server/index.js";
-import * as dotenv from "dotenv";
+import { Command } from "commander";
 import { DynamoDBConfig } from "./notes-mcp-server/config.js";
-
-dotenv.config();
+import { createNotesServer } from "./notes-mcp-server/server.js";
+import { getVersion } from "./utils/version.js";
 
 const program = new Command();
 
 program
-  .version("0.1.0")
+  .version(await getVersion())
   .description(
     "MCP Notes Server - A note-taking service using Model Context Protocol"
   )
@@ -66,9 +64,10 @@ async function main() {
     tableName,
     credentials,
   };
-  const { server, cleanup } = createNotesServer(config);
+  const { server, cleanup } = await createNotesServer(config);
 
   await server.connect(transport);
+  console.log("MCP Notes server is running on stdin...");
 
   process.on("SIGINT", async () => {
     console.log("Shutting down MCP Notes server...");
