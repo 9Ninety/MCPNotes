@@ -2,6 +2,10 @@
 
 ![MCP Notes Cover Image](./assets/cover.png)
 
+<a href="https://glama.ai/mcp/servers/@9Ninety/MCPNotes">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@9Ninety/MCPNotes/badge" alt="Notes MCP server" />
+</a>
+
 ## ✨ Overview
 
 **MCP Notes Server** is a simple note-taking application built on top of the MCP protocol. Its purpose is to enable users to record and view complex notes and tasks while utilizing AI models, such as recording personal thoughts, notes, inspirations, and insights. It does not rely on creating project files, allowing users to record any content without making it public within the project.
